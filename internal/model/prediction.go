@@ -1,5 +1,5 @@
 package model
 
 type Prediction struct {
-	Value float32
+	Value int `json:"prediction"`
 }

@@ -10,8 +10,11 @@ func (s *ScoringService) Predict(
 	ctx context.Context,
 	features model.Features,
 ) (model.Prediction, error) {
+	var prediction model.Prediction
 
-	return model.Prediction{
-		Value: 0.5,
-	}, nil
+	if err := s.modelClient.Post(nil, "/predict", features, &prediction); err != nil {
+		return model.Prediction{}, err
+	}
+
+	return prediction, nil
 }

@@ -103,7 +103,7 @@ func (c *Client) SendRequest(
 		}
 
 		if respBody != nil {
-			return json.NewDecoder(req.Body).Decode(respBody)
+			return json.NewDecoder(resp.Body).Decode(respBody)
 		}
 		return nil
 	}

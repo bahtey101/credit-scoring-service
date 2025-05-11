@@ -1,15 +1,27 @@
 package scoringservice
 
-import "github.com/bahtey101/credit-scoring-service/internal/config"
+import (
+	"fmt"
+	"time"
+
+	"github.com/bahtey101/credit-scoring-service/internal/config"
+	"github.com/bahtey101/credit-scoring-service/internal/http/client"
+)
 
 type ScoringService struct {
-	modelHost string
-	modelPort string
+	modelClient *client.Client
 }
 
-func NewScoringService(cfg *config.Config) *ScoringService {
+func NewScoringService(
+	cfg *config.Config,
+	timeout time.Duration,
+	retries int,
+) *ScoringService {
 	return &ScoringService{
-		modelHost: cfg.MLHost,
-		modelPort: cfg.MLPort,
+		modelClient: client.NewClient(
+			fmt.Sprintf("http://%s:%s", cfg.MLHost, cfg.MLPort),
+			timeout,
+			retries,
+		),
 	}
 }

@@ -17,7 +17,7 @@ import (
 
 func Run(cfg *config.Config) error {
 	_, cancel := context.WithCancel(context.Background())
-	scoringService := scoringservice.NewScoringService(cfg)
+	scoringService := scoringservice.NewScoringService(cfg, 10*time.Second, 3)
 
 	handler := handlers.NewHandler(
 		cfg.GoogleAPIKey,
